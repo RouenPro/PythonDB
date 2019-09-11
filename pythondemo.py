@@ -1,4 +1,18 @@
 import psycopg2
+import numpy as np
+from psycopg2.extras import execute_values
+
+
+
+b = np.random.randn(128)
+print("-----------------")
+print(type(b))
+print("-----------------")
+print(b)
+
+
+
+
 
 # Connect to database
 con = psycopg2.connect(
@@ -7,14 +21,12 @@ con = psycopg2.connect(
     user = "postgres",
     password = "password")
 
-import psycopg2
-
 #cursor
 cur = con.cursor()
 
-cur.execute("insert into employees (id, username) values (%s, %s)", (1, "Hussein") )
+cur.execute("insert into employees (id, username) values (%s, %s)",(200, b))
 
-#execute query
+#execute query bnm,7890 qwertyop
 cur.execute("select id, username from employees")
 
 rows = cur.fetchall()
