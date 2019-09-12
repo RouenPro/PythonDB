@@ -10,8 +10,11 @@ print(type(b))
 print("-----------------")
 print(b)
 
-
-
+print("------------------")
+x = np.array([[1, 2, 3], [4, 5, 6]], np.int32)
+print(type(x))
+print(x)
+print("------------------")
 
 
 # Connect to database
@@ -24,7 +27,7 @@ con = psycopg2.connect(
 #cursor
 cur = con.cursor()
 
-cur.execute("insert into employees (id, username) values (%s, %s)",(200, b))
+cur.execute("insert into employees (id, username) values (%s, %s)",(200, "YesssssNo"))
 
 #execute query bnm,7890 qwertyop
 cur.execute("select id, username from employees")
