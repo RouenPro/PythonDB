@@ -32,6 +32,7 @@ x = np.array([-0.12317917  ,0.1295325   ,0.02713361 ,-0.06005447 ,-0.02224888 ,-
  ,-0.02354596  ,0.00751721 ,-0.23072748  ,0.00631592  ,0.13620441 ,-0.00589077
   ,0.09612961 ,-0.05096926],dtype=np.float)
 
+x = np.array2string(x, precision=3)
 print(x)
 print(type(x))
 print(len(x))
@@ -42,15 +43,21 @@ con = psycopg2.connect(
     user = "postgres",
     password = "password")
 
+
+
 #cursor
 cur = con.cursor()
+# Random value
+num = np.random.randint(1,1000)
+print(num)
 
-cur.execute("insert into employees (id, username) values (%s, %s)",(200, "x"))
+
+cur.execute("insert into employees (id, username) values (%s, %s)",(num, x))
 
 #execute query bnm,7890 qwertyop
 cur.execute("select id, username from employees")
 
-//Query Result Set
+# Query Result Set
 rows = cur.fetchall()
 
 for r in rows:
