@@ -2,7 +2,6 @@ import random
 import numpy as np
 
 states = "Rouen Sann 129 okay"
-
 random_state = random.choice(states.split())
 test = states.split()
 data128D = """-0.12317917  0.1295325   0.02713361 -0.06005447 -0.02224888 -0.02827183
@@ -31,7 +30,6 @@ print(random_state)
 print(test)
 print(type(test))
 print("This is 128D data")
-print(type(data128D))
 
 print("Converting 128D type string to list")
 listdata128D = data128D.split()
@@ -41,3 +39,26 @@ print(type(listdata128D))
 print("Convert 128D type list to numpy")
 numpy128D = np.asarray(listdata128D, dtype=np.float32)
 print(type(numpy128D))
+print(numpy128D)
+
+print("---------This code is working below-----------")
+
+chars = ['s', 'k', 'k', 'a', 'v']
+def change_upper_case(s):
+    return str(s).upper()
+change_upper_case("Rouen")
+map_iterator = map(change_upper_case, chars)
+output_list = list(map_iterator)
+print(output_list)
+print("------------------------------------------")
+print(type(output_list))
+print("------------------------------------------")
+
+
+# print("---------Hello-----------")
+# a = np.linspace(start = -5, stop = 150,
+#                 num = 128, endpoint = True)
+#
+# print("Graphical Representation : \n", np.cbrt(a))
+# print(type(np.cbrt(a)))
+# print("---------Thank you------------")

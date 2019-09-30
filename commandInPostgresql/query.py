@@ -7,13 +7,8 @@ con = psycopg2.connect(
     user = "postgres",
     password = "password")
 
-cur = con.cursor()
-cur.execute("
-SELECT id, POW(f1 - :e1, 2) + POW(f2 - :e2, 2) + ... + POW(f128 - :e128, 2) AS square_distance
-FROM encodings
-WHERE
- f1 > :minF1 AND f1 < :maxF1 AND
- f2 > :minF2 AND f2 < :maxF2 AND
- f128 > :minF128 AND f128 < :maxF128
-ORDER BY square_distance ASC LIMIT 1",(200, "RouenPro"))
+cur = con.cursor("""SELECT * from my_stored_encodings ORDER BY sqrt(
+power(-0.12317917 - -0.12317917, 2) +
+power(0.1295325 - 0.1295325, 2))""")
+cur.execute(""))
 print("Finish")

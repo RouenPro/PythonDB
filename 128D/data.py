@@ -7,6 +7,7 @@ import sys
 import re
 import numpy as np
 import os
+import psycopg2.extras
 
 
 x = np.array([-0.12317917  ,0.1295325   ,0.02713361 ,-0.06005447 ,-0.02224888 ,-0.02827183
@@ -43,16 +44,33 @@ con = psycopg2.connect(
     user = "postgres",
     password = "password")
 
+print("---------Hello-----------")
+a = np.linspace(start = -5, stop = 150,
+                num = 128, endpoint = True)
 
+print("Graphical Representation : \n", np.cbrt(a))
+print(type(np.cbrt(a)))
+print("---------Thank you------------")
 
+east = np.linspace(-180.0,180.0,num=50)
+north = np.linspace(-90.0,90.0,num=50)
+# get array of pairs [east, north]
+coor = np.dstack([east, north])
+
+# convert to array of tuples (east, north) as strings
+values = [[str(tuple(i))] for i in coor[0]]
 #cursor
 cur = con.cursor()
 # Random value
-num = np.random.randint(1,1000)
-print(num)
 
+#
+values = map(lambda a: ['{},{}'.format(a[0],a[1])], np.column_stack((east, north)))
+print(type(values))
+print("Hello world**")
+# psycopg2.extras.execute_values(cur, "insert into employees (id, username) values (%s, %s)", (1111, "R"))
+psycopg2.extras.execute_values(cur, "INSERT INTO employees (id, username) VALUES (%s, %s)", (1,values))
 
-cur.execute("insert into employees (id, username) values (%s, %s)",(num, x))
+# cur.execute("insert into employees (id, username) values (%s, %s)",(1111, "R"))
 
 #execute query bnm,7890 qwertyop
 cur.execute("select id, username from employees")
