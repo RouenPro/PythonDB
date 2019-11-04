@@ -40,9 +40,9 @@ print(len(x))
 
 con = psycopg2.connect(
     host = "localhost",
-    database = "Pythondb",
+    database = "kit",
     user = "postgres",
-    password = "password")
+    password = "098991534Pro$$$$")
 
 print("---------Hello-----------")
 a = np.linspace(start = -5, stop = 150,
@@ -54,38 +54,24 @@ print("---------Thank you------------")
 
 east = np.linspace(-180.0,180.0,num=50)
 north = np.linspace(-90.0,90.0,num=50)
-# get array of pairs [east, north]
+
 coor = np.dstack([east, north])
 
-# convert to array of tuples (east, north) as strings
+
 values = [[str(tuple(i))] for i in coor[0]]
-#cursor
+
 cur = con.cursor()
-# Random value
+
 
 #
 values = map(lambda a: ['{},{}'.format(a[0],a[1])], np.column_stack((east, north)))
 print(type(values))
 print("Hello world**")
-# psycopg2.extras.execute_values(cur, "insert into employees (id, username) values (%s, %s)", (1111, "R"))
+
 psycopg2.extras.execute_values(cur, "INSERT INTO employees (id, username) VALUES (%s, %s)", (1,values))
 
-# cur.execute("insert into employees (id, username) values (%s, %s)",(1111, "R"))
-
-#execute query bnm,7890 qwertyop
 cur.execute("select id, username from employees")
-
-# Query Result Set
 rows = cur.fetchall()
-
-# for r in rows:
-#     print (f"id {r[0]} username {r[1]}")
-
-#commit the transcation
 con.commit()
-
-#close the cursor
 cur.close()
-
-#close the connection
 con.close()

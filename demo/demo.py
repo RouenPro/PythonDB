@@ -1,8 +1,13 @@
 import psycopg2
 import numpy as np
-from psycopg2.extras import execute_values
 
 
+# Connect to database
+con = psycopg2.connect(
+    host = "localhost",
+    database = "testing",
+    user = "postgres",
+    password = "098991534Pro$$$$")
 
 data128D = """-0.12317917  0.1295325   0.02713361 -0.06005447 -0.02224888 -0.02827183
  -0.02702068 -0.13983949  0.15303117 -0.15798856  0.29225576 -0.04453279
@@ -26,47 +31,37 @@ data128D = """-0.12317917  0.1295325   0.02713361 -0.06005447 -0.02224888 -0.028
   0.21343666  0.17385238  0.02772689  0.11796317  0.11827657  0.08486905
  -0.02354596  0.00751721 -0.23072748  0.00631592  0.13620441 -0.00589077
   0.09612961 -0.05096926"""
-chars = list(data128D)
 
+
+
+
+print(data128D)
+print(type(data128D))
+chars = list(data128D)
 
 def change_upper_case(s):
     return str(s)
 
+
+
 map_iterator = map(change_upper_case, chars)
-
 output_list = list(map_iterator)
+print(type(output_list))
 
 
-# Connect to database
-con = psycopg2.connect(
-    host = "localhost",
-    database = "kit",
-    user = "postgres",
-    password = "098991534Pro$$$$")
 
-#cursor
+print("Connected----")
 cur = con.cursor()
 
-cur.execute("insert into employees (id, username) values (%s, %s)",(324, output_list))
-
-
-#execute query bnm,7890 qwertyop
-cur.execute("select id, username from employees")
+print(type(data128D))
+cur.execute("insert into students (id, username) values (%s, %s)",(1, output_list))
+cur.execute("select id, username from students")
 
 rows = cur.fetchall()
-#
-# for r in rows:
-#     print (f"id {r[0]} username {r[1]}")
-
-#commit the transcation
-con.commit()
-
-#close the cursor
-cur.close()
-
-#close the connection
-con.close()
 print(type(output_list))
-print(type(map_iterator))
-print(type(chars))
-print(type(data128D))
+print("------Finished------")
+
+
+con.commit()
+cur.close()
+con.close()
